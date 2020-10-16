@@ -1,20 +1,38 @@
-console.log("Main.js started.")
+var Vehicle = Backbone.Model.extend({
 
-var Song = Backbone.Model.extend({
-    initialize: function() {
-        console.log("A new song has been created.")
-    },
-    defaults: {
-        genre: "Jazz"
-    },
-    validate: function(attrs) {
-        if (!attrs.title) return "Title is required"
-    }
+	idAttribute: "registrationNumber",
+
+	urlRoot: "/api/vehicles",
+
+	validate: function(attrs){
+		if (!attrs.registrationNumber)
+			return "Vehicle is not valid.";
+	},
+
+	start: function(){
+		console.log("Vehicle started.");
+	}
 });
 
-var song = new Song({
-    artist: "Biles Davids",
-    publishedYear: 1959
+var Car = Vehicle.extend({
+	start: function(){
+		console.log("Car with registration number " + this.get("registrationNumber") + " started.");
+	}
 });
 
-console.log("song", song)
+var car = new Car({
+	registrationNumber: "XLI887",
+	color: "Blue"
+});
+
+car.unset("registrationNumber");
+
+if (!car.isValid())
+	console.log(car.validationError);
+
+car.set("registrationNumber", "XLI887");
+
+if (!car.isValid())
+	console.log(car.validationError);
+
+car.start();
