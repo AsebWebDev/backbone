@@ -10,6 +10,6 @@ let Album = Backbone.Collection.extend({
             return song.get("numberOfPlays")
         })
 
-        return sortedSongs[sortedSongss.length - 1]
+        return sortedSongs[sortedSongs.length - 1]
     }
 })
