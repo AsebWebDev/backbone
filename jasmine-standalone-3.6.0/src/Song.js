@@ -1,7 +1,16 @@
-function Song() {
-}
+var Song = Backbone.Model.extend({
+  urlRoot: '/api/songs',
 
-Song.prototype.persistFavoriteStatus = function(value) {
-  // something complicated
-  throw new Error("not yet implemented");
-};
+  defaults : {
+    numberOfPlays: 0
+  },
+
+  validate: (attrs) => {
+    if (!attrs.title) return 'Title is required.'
+  },
+
+  play: function() {
+    let numberOfPlays = this.get('numberOfPlays');
+    this.set('numberOfPlays', numberOfPlays + 1)
+  }
+})
